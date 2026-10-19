@@ -13,6 +13,9 @@
   --color-texto: #12302F;
   --color-fondo: #FFFFFF;
   --color-borde: #CFE3DF;
+  --color-verde-claro: #D6F0E9;
+  --color-ambar-claro: #FCEFCF;
+  --color-coral-claro: #FDE3DE;
 
   --fuente-titulos: Cambria, Georgia, "Times New Roman", serif;
   --fuente-cuerpo: Calibri, "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -626,4 +629,100 @@
   .chip {
     flex: none;
   }
+}
+
+/* Panel del comercio */
+.formulario-panel {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 32rem;
+  margin-bottom: 1rem;
+}
+
+.barra-panel {
+  margin: 0 0 1rem;
+}
+
+.mensaje-error {
+  margin: 0;
+  color: var(--color-texto);
+  font-weight: 700;
+}
+
+/* El mensaje de error solo ocupa espacio cuando tiene texto. */
+.mensaje-error:not(:empty) {
+  padding: 0.5rem 0.75rem;
+  background: var(--color-coral-claro);
+  border-left: 4px solid var(--color-coral);
+  border-radius: 8px;
+}
+
+.campo[aria-invalid="true"] {
+  border-color: var(--color-coral);
+}
+
+.boton-peligro {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  border-color: var(--color-coral);
+}
+
+.boton-peligro:hover {
+  background: var(--color-coral);
+  border-color: var(--color-coral);
+  color: var(--color-texto);
+}
+
+/* Avisos breves (toasts), por encima de la barra de navegación inferior. */
+.zona-avisos {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(var(--alto-navegacion) + 1rem);
+  left: 1rem;
+  z-index: 40;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.aviso-flotante {
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-primario);
+  color: #FFFFFF;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(18, 48, 47, 0.3);
+  animation: entrada-aviso var(--transicion);
+}
+
+@keyframes entrada-aviso {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 768px) {
+  .zona-avisos {
+    bottom: 1.5rem;
+  }
+}
+
+/* Disponibilidad: color + símbolo + texto (nunca solo color) */
+.insignia-disponible {
+  background: var(--color-verde-claro);
+  color: var(--color-texto);
+  border-color: var(--color-acento);
+}
+
+.insignia-pocas-unidades {
+  background: var(--color-ambar-claro);
+  color: var(--color-texto);
+  border-color: var(--color-ambar);
+}
+
+.insignia-agotado {
+  background: var(--color-coral-claro);
+  color: var(--color-texto);
+  border-color: var(--color-coral);
 }
