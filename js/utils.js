@@ -10,6 +10,14 @@
   const MS_POR_MINUTO = 60 * 1000;
   const MINUTOS_POR_HORA = 60;
   const HORAS_POR_DIA = 24;
+  const DURACION_AVISO_MS = 3500;
+
+  // Cada estado lleva un símbolo además del color, para no depender solo de él.
+  const ESTADOS = {
+    disponible: { etiqueta: 'Disponible', simbolo: '✓' },
+    pocas_unidades: { etiqueta: 'Pocas unidades', simbolo: '!' },
+    agotado: { etiqueta: 'Agotado', simbolo: '✕' }
+  };
 
   const formateadorPrecio = new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -108,12 +116,36 @@
     );
   }
 
+  /**
+   * Crea la insignia de disponibilidad de un producto (texto, símbolo y color).
+   * @param {string} estado "disponible", "pocas_unidades" o "agotado".
+   * @returns {HTMLElement}
+   */
+  function crearInsigniaEstado(estado) {
+    const datos = ESTADOS[estado];
+    return crearElemento('span', 'insignia insignia-' + estado.replace('_', '-'), datos.simbolo + ' ' + datos.etiqueta);
+  }
+
+  /**
+   * Muestra un aviso breve (toast) que desaparece solo; lo anuncian los lectores de pantalla.
+   * @param {string} texto Mensaje para la persona.
+   */
+  function mostrarAviso(texto) {
+    const zona = document.getElementById('avisos');
+    const aviso = crearElemento('p', 'aviso-flotante', texto);
+    zona.appendChild(aviso);
+    window.setTimeout(function () { aviso.remove(); }, DURACION_AVISO_MS);
+  }
+
   window.CCM.utils = {
+    ESTADOS: ESTADOS,
     crearElemento: crearElemento,
     normalizarTexto: normalizarTexto,
     formatearPrecio: formatearPrecio,
     textoActualizado: textoActualizado,
     retrasar: retrasar,
-    crearInsigniaApertura: crearInsigniaApertura
+    crearInsigniaApertura: crearInsigniaApertura,
+    crearInsigniaEstado: crearInsigniaEstado,
+    mostrarAviso: mostrarAviso
   };
 })();
