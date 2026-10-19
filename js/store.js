@@ -11,6 +11,8 @@
   // La versión en la clave permite descartar datos viejos si el modelo cambia.
   const CLAVE_ALMACEN = 'ccm.datos.v1';
   const ESTADOS_PRODUCTO = ['disponible', 'pocas_unidades', 'agotado'];
+  // 36 al cuadrado: el sufijo aleatorio del id usa dos caracteres en base 36.
+  const ALCANCE_ALEATORIO = 1296;
 
   // Copia en memoria: también sirve cuando LocalStorage no está disponible (modo privado).
   let datosEnMemoria = null;
@@ -119,10 +121,90 @@
     });
   }
 
+  /**
+   * Lista los productos de un comercio, ordenados por nombre.
+   * @param {string} comercioId Identificador del comercio.
+   * @returns {Array<Object>}
+   */
+  function obtenerProductosDeComercio(comercioId) {
+    return obtenerDatos().productos
+      .filter(function (producto) { return producto.comercio_id === comercioId; })
+      .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); });
+  }
+
+  /**
+   * Comprueba el PIN de un comercio. El PIN es de ejemplo: no ofrece seguridad real.
+   * @param {string} comercioId Identificador del comercio.
+   * @param {string} pin PIN digitado.
+   * @returns {boolean}
+   */
+  function pinCorrecto(comercioId, pin) {
+    const comercio = obtenerComercio(comercioId);
+    return Boolean(comercio) && comercio.pin === pin;
+  }
+
+  function generarIdProducto() {
+    return 'p' + Date.now().toString(36) + Math.floor(Math.random() * ALCANCE_ALEATORIO).toString(36);
+  }
+
+  function copiarCampos(producto, campos) {
+    producto.nombre = campos.nombre;
+    producto.categoria = campos.categoria;
+    producto.precio = campos.precio;
+    producto.unidad = campos.unidad;
+    producto.estado = campos.estado;
+    producto.actualizado = new Date().toISOString();
+  }
+
+  /**
+   * Crea un producto nuevo en un comercio.
+   * @param {string} comercioId Comercio dueño del producto.
+   * @param {{nombre: string, categoria: string, precio: number, unidad: string, estado: string}} campos Datos del producto.
+   * @returns {boolean} true si quedó guardado en LocalStorage.
+   */
+  function agregarProducto(comercioId, campos) {
+    const datos = obtenerDatos();
+    const producto = { id: generarIdProducto(), comercio_id: comercioId };
+    copiarCampos(producto, campos);
+    datos.productos.push(producto);
+    return guardarDatos(datos);
+  }
+
+  /**
+   * Edita un producto existente y renueva su fecha de actualización.
+   * @param {string} id Identificador del producto.
+   * @param {{nombre: string, categoria: string, precio: number, unidad: string, estado: string}} campos Datos nuevos.
+   * @returns {boolean} true si quedó guardado en LocalStorage.
+   */
+  function actualizarProducto(id, campos) {
+    const datos = obtenerDatos();
+    const producto = datos.productos.find(function (p) { return p.id === id; });
+    if (producto) {
+      copiarCampos(producto, campos);
+    }
+    return guardarDatos(datos);
+  }
+
+  /**
+   * Elimina un producto.
+   * @param {string} id Identificador del producto.
+   * @returns {boolean} true si quedó guardado en LocalStorage.
+   */
+  function eliminarProducto(id) {
+    const datos = obtenerDatos();
+    datos.productos = datos.productos.filter(function (p) { return p.id !== id; });
+    return guardarDatos(datos);
+  }
+
   window.CCM.store = {
+    ESTADOS_PRODUCTO: ESTADOS_PRODUCTO,
     obtenerDatos: obtenerDatos,
-    guardarDatos: guardarDatos,
     restablecer: restablecer,
-    obtenerComercio: obtenerComercio
+    obtenerComercio: obtenerComercio,
+    obtenerProductosDeComercio: obtenerProductosDeComercio,
+    pinCorrecto: pinCorrecto,
+    agregarProducto: agregarProducto,
+    actualizarProducto: actualizarProducto,
+    eliminarProducto: eliminarProducto
   };
 })();
