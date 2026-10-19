@@ -25,7 +25,7 @@ No incluye: compra o pago en línea, backend, inventarios reales ni app nativa.
 - Opción 1: abrir `index.html` con doble clic (funciona con `file://`).
 - Opción 2: en la raíz, ejecutar un servidor estático, por ejemplo `python -m http.server` y abrir `http://localhost:8000`.
 
-Requiere internet para cargar Tailwind CSS, Leaflet y los mosaicos de OpenStreetMap desde sus CDN. Sin internet, la app funciona, pero el mapa muestra un aviso.
+Requiere internet para cargar Tailwind CSS, Google Fonts, Leaflet y los mosaicos de OpenStreetMap desde sus CDN. Sin internet, la app funciona, pero el mapa muestra un aviso.
 
 ## PIN de ejemplo del panel
 
@@ -69,6 +69,8 @@ Todo vive bajo el espacio de nombres `window.CCM`, y cada archivo es una IIFE. E
 - **`textContent` en vez de `innerHTML`**: evita XSS con datos escritos en el panel.
 - **Hora de Bogotá con `Intl.DateTimeFormat`**: "Abierto ahora" es correcto aunque el dispositivo esté en otra zona horaria.
 - **Lógica separada del DOM** (`busqueda.js`, `horario.js`): filtrar, ordenar y calcular horarios no dependen de la interfaz.
+- **Diálogo de confirmación propio con `<dialog>`**: se ve acorde al sitio, atrapa el foco y se cierra con Escape; el foco inicial va en "Cancelar" para evitar borrados por accidente.
+- **Google Fonts con respaldo**: Fraunces (títulos) y DM Sans (texto), con Cambria y Calibri como alternativa si no cargan.
 - **Estado nunca solo por color**: las insignias de disponibilidad y de Abierto/Cerrado llevan texto y símbolo; los chips activos llevan ✓.
 - **Leaflet 1.9.4 con integridad SRI y versión fija**: mapa liviano, sin llaves de API. Tailwind 3.4.17 por CDN con versión fija.
 - **Sin datos personales**: la app no pide ni guarda datos del consumidor (Ley 1581 de 2012). El PIN nunca se guarda: la sesión del panel vive en memoria.

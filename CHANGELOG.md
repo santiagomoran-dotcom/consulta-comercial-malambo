@@ -7,5 +7,6 @@
 - Etapa 2: panel con PIN para crear, editar y eliminar productos, con confirmación y avisos breves.
 - Etapa 3: insignias de disponibilidad (Disponible, Pocas unidades, Agotado) en panel, buscador y ficha.
 - Etapa 4: títulos de lista como `h2` (orden de encabezados), README final con arquitectura, PIN de ejemplo y guía de despliegue en Vercel.
-- Se creó `docs/evidencias/casos-de-prueba.md` con los casos CP-001 a CP-036, todos pendientes de prueba manual.
+- Mejoras visuales: favicon, tipografías Fraunces y DM Sans de Google Fonts, diálogos de confirmación propios (eliminar y restablecer), portada con degradado en el inicio, barra de navegación flotante en móvil y tarjetas con sombras suaves.
+- Se creó `docs/evidencias/casos-de-prueba.md` con los casos CP-001 a CP-039, todos pendientes de prueba manual.
 - Pendiente: probar los casos en el navegador, tomar las capturas, verificar las coordenadas en OpenStreetMap y desplegar en Vercel.

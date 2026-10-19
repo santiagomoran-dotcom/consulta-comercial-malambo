@@ -12,7 +12,7 @@ Los resultados reales los registra el equipo después de probar en el navegador.
 | CP-004 | Comercio inexistente | Visitar `#/comercio/xyz` | Mensaje "Comercio no encontrado" con botón para volver al inicio | Pendiente | Pendiente | — |
 | CP-005 | Ruta desconocida | Visitar `#/algo-que-no-existe` | Redirige al inicio | Pendiente | Pendiente | — |
 | CP-006 | Aviso permanente | Navegar por las 4 rutas | El aviso "Datos de ejemplo para fines académicos" se ve siempre arriba | Pendiente | Pendiente | — |
-| CP-007 | Restablecer datos | Pulsar "Restablecer datos de ejemplo" y aceptar la confirmación | La app recarga la vista sin errores; si se cancela, no pasa nada | Pendiente | Pendiente | — |
+| CP-007 | Restablecer datos | Pulsar "Restablecer datos de ejemplo" y confirmar en el diálogo | La app recarga la vista sin errores y muestra el aviso "Datos de ejemplo restablecidos."; si se cancela, no pasa nada | Pendiente | Pendiente | — |
 | CP-008 | LocalStorage dañado | En la consola: `localStorage.setItem('ccm.datos.v1', '{roto')` y recargar | La app carga con los datos de ejemplo, sin errores | Pendiente | Pendiente | — |
 | CP-009 | Vista a 360 px | Abrir a 360 px de ancho (modo dispositivo del navegador) | Sin scroll horizontal; barra inferior con 3 enlaces visibles; textos legibles | Pendiente | Pendiente | — |
 | CP-010 | Navegación con teclado | Recorrer la página con Tab | Foco visible en todos los enlaces y botones; "Saltar al contenido" aparece primero | Pendiente | Pendiente | — |
@@ -44,7 +44,7 @@ Los resultados reales los registra el equipo después de probar en el navegador.
 | CP-026 | Editar precio del arroz | Editar "Arroz" de Tienda Don Pedro, poner 5000 y guardar | Aviso "Cambios guardados."; en el buscador, "arroz" muestra $ 5.000 para ese comercio | Pendiente | Pendiente | — |
 | CP-027 | Crear producto | Pulsar "Agregar producto", llenar los campos y guardar | Aviso "Producto agregado." y el producto aparece en la lista y en el buscador | Pendiente | Pendiente | — |
 | CP-028 | Validación del formulario | Guardar el formulario vacío, o con precio con decimales | Mensaje de error claro; no se guarda | Pendiente | Pendiente | — |
-| CP-029 | Eliminar con confirmación | Pulsar "Eliminar" y cancelar; luego repetir y aceptar | Al cancelar no pasa nada; al aceptar sale "Producto eliminado." y desaparece de la lista | Pendiente | Pendiente | — |
+| CP-029 | Eliminar con confirmación | Pulsar "Eliminar" y cancelar (o pulsar Escape); luego repetir y confirmar en el diálogo | Se abre un diálogo propio con el foco en "Cancelar"; al cancelar no pasa nada; al confirmar sale "Producto eliminado." y desaparece de la lista | Pendiente | Pendiente | — |
 | CP-030 | Cambios persisten | Editar un precio y recargar la página (F5) | El precio nuevo se mantiene en el buscador | Pendiente | Pendiente | — |
 | CP-031 | Cerrar sesión | Pulsar "Cerrar sesión" | Vuelve al acceso con PIN; aviso "Sesión cerrada." | Pendiente | Pendiente | — |
 | CP-032 | Restablecer | Con cambios hechos, pulsar "Restablecer datos de ejemplo" | El arroz de Tienda Don Pedro vuelve a $ 4.200 y desaparecen los productos creados | Pendiente | Pendiente | — |
@@ -57,3 +57,11 @@ Los resultados reales los registra el equipo después de probar en el navegador.
 | CP-034 | Tres estados visibles | Buscar productos sin filtro y revisar las insignias | Se ven "✓ Disponible" (verde), "! Pocas unidades" (ámbar) y "✕ Agotado" (coral), siempre con texto | Pendiente | Pendiente | — |
 | CP-035 | Estado en la ficha | Abrir la ficha de Tienda Don Pedro | Cada producto muestra su insignia de disponibilidad | Pendiente | Pendiente | — |
 | CP-036 | Cambiar estado en el panel | Poner un producto en "Agotado" desde el panel | La insignia cambia en el panel, el buscador y la ficha | Pendiente | Pendiente | — |
+
+## Mejoras visuales
+
+| ID | Descripción | Pasos | Resultado esperado | Resultado real | Estado | Fecha |
+|----|-------------|-------|--------------------|----------------|--------|-------|
+| CP-037 | Favicon | Abrir el sitio y mirar la pestaña del navegador | Se ve el ícono de pin verde azulado | Pendiente | Pendiente | — |
+| CP-038 | Tipografías de Google Fonts | Abrir el inicio con internet | Títulos en Fraunces (serif) y texto en DM Sans; sin internet se usan Cambria y Calibri | Pendiente | Pendiente | — |
+| CP-039 | Diálogo de confirmación | Eliminar un producto y restablecer datos | Diálogo centrado con fondo oscuro, botones de al menos 44 px; se cierra con Escape y con clic fuera | Pendiente | Pendiente | — |
