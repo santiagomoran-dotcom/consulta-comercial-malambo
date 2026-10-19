@@ -210,7 +210,7 @@
     const item = crear('li', 'tarjeta');
 
     const fila = crear('div', 'fila-precio');
-    fila.appendChild(crear('h3', 'tarjeta-titulo', producto.nombre));
+    fila.appendChild(crear('h2', 'tarjeta-titulo', producto.nombre));
     fila.appendChild(crear('p', 'precio', utils.formatearPrecio(producto.precio)));
     item.appendChild(fila);
     item.appendChild(crear('p', 'tarjeta-detalle', producto.categoria + ' · por ' + producto.unidad));

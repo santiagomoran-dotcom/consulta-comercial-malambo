@@ -30,7 +30,7 @@
     const item = crear('li', 'tarjeta');
 
     const fila = crear('div', 'fila-precio');
-    fila.appendChild(crear('h3', 'tarjeta-titulo', resultado.producto.nombre));
+    fila.appendChild(crear('h2', 'tarjeta-titulo', resultado.producto.nombre));
     fila.appendChild(crear('p', 'precio', utils.formatearPrecio(resultado.producto.precio)));
     item.appendChild(fila);
 
