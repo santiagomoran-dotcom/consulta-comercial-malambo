@@ -12,6 +12,7 @@
   const MENSAJE_ERROR_VISTA = 'No pudimos cargar esta pantalla. Intenta de nuevo o vuelve al inicio.';
 
   const rutas = [];
+  const limpiezas = [];
   let contenedor = null;
   let enlacesNavegacion = [];
 
@@ -89,8 +90,24 @@
     contenedor.appendChild(aviso);
   }
 
+  /**
+   * Registra una función que se ejecuta una sola vez antes de la siguiente navegación.
+   * Sirve para liberar recursos de una vista (mapas de Leaflet, temporizadores).
+   * @param {function(): void} limpieza Función de limpieza.
+   */
+  function alDescartar(limpieza) {
+    limpiezas.push(limpieza);
+  }
+
+  function ejecutarLimpiezas() {
+    while (limpiezas.length > 0) {
+      limpiezas.pop()();
+    }
+  }
+
   /** Dibuja la vista que corresponde al hash actual. */
   function navegar() {
+    ejecutarLimpiezas();
     const resultado = resolver(rutaActual());
     if (!resultado) {
       window.location.replace('#' + RUTA_INICIO);
@@ -120,5 +137,10 @@
     navegar();
   }
 
-  window.CCM.router = { registrar: registrar, iniciar: iniciar, recargar: navegar };
+  window.CCM.router = {
+    registrar: registrar,
+    iniciar: iniciar,
+    recargar: navegar,
+    alDescartar: alDescartar
+  };
 })();
