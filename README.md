@@ -18,7 +18,7 @@ No incluye: compra o pago en línea, backend, inventarios reales ni app nativa.
 
 ## Estado
 
-Etapa 0 (base) terminada: estructura, enrutador, almacén con LocalStorage, datos de ejemplo y aviso permanente. Las pantallas aún son marcadores de posición.
+Etapas 0 (base) y 1 (buscador, ficha y mapa) terminadas. El panel con PIN y la disponibilidad siguen pendientes.
 
 ## Cómo ejecutar
 
@@ -44,6 +44,9 @@ docs/evidencias/  Casos de prueba y capturas
 - **Rutas con hash** (`#/`, `#/comercio/ID`, `#/mapa`, `#/panel`): funcionan sin configurar el servidor.
 - **LocalStorage validado**: si los datos guardados están dañados, la app vuelve a la semilla.
 - **Tailwind por CDN**: evita un paso de compilación; el CDN no se recomienda para producción.
+- **Leaflet 1.9.4 con OpenStreetMap por CDN y versión fija**: mapa liviano y sin llaves de API; si falla la carga, se muestra un aviso.
+- **Hora de Bogotá con `Intl.DateTimeFormat`**: "Abierto ahora" es correcto aunque el dispositivo esté en otra zona horaria.
+- **Lógica separada del DOM** (`busqueda.js`, `horario.js`): filtrar y ordenar no dependen de la interfaz.
 
 ## Limitaciones
 
