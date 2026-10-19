@@ -199,10 +199,17 @@
   /* ---------- Lista de productos ---------- */
 
   function confirmarEliminar(producto) {
-    if (window.confirm('¿Eliminar «' + producto.nombre + '»? Esta acción no se puede deshacer.')) {
-      avisarResultado(window.CCM.store.eliminarProducto(producto.id), 'Producto eliminado.');
-      window.CCM.router.recargar();
-    }
+    window.CCM.dialogo.confirmar({
+      titulo: '¿Eliminar este producto?',
+      mensaje: '«' + producto.nombre + '» se quitará de tu lista y del buscador. Esta acción no se puede deshacer.',
+      textoConfirmar: 'Sí, eliminar',
+      peligro: true
+    }).then(function (confirmado) {
+      if (confirmado) {
+        avisarResultado(window.CCM.store.eliminarProducto(producto.id), 'Producto eliminado.');
+        window.CCM.router.recargar();
+      }
+    });
   }
 
   function crearFilaProducto(producto) {

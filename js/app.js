@@ -7,9 +7,6 @@
 
   window.CCM = window.CCM || {};
 
-  const MENSAJE_CONFIRMAR_RESTABLECER =
-    '¿Restablecer los datos de ejemplo? Se perderán los cambios hechos en el panel.';
-
   function registrarRutas() {
     const router = window.CCM.router;
     const vistas = window.CCM.vistas;
@@ -21,10 +18,18 @@
 
   function conectarRestablecer() {
     document.getElementById('boton-restablecer').addEventListener('click', function () {
-      if (window.confirm(MENSAJE_CONFIRMAR_RESTABLECER)) {
-        window.CCM.store.restablecer();
-        window.CCM.router.recargar();
-      }
+      window.CCM.dialogo.confirmar({
+        titulo: '¿Restablecer los datos de ejemplo?',
+        mensaje: 'Se perderán los cambios hechos en el panel y la app volverá a los datos iniciales.',
+        textoConfirmar: 'Sí, restablecer',
+        peligro: false
+      }).then(function (confirmado) {
+        if (confirmado) {
+          window.CCM.store.restablecer();
+          window.CCM.router.recargar();
+          window.CCM.utils.mostrarAviso('Datos de ejemplo restablecidos.');
+        }
+      });
     });
   }
 
