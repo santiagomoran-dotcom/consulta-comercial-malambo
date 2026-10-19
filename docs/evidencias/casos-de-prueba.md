@@ -34,3 +34,26 @@ Los resultados reales los registra el equipo después de probar en el navegador.
 | CP-021 | Mapa general | Abrir `#/mapa` y tocar un pin | Se ven 7 pines; el globo muestra el nombre y el enlace "Ver ficha" lleva a la ficha | Pendiente | Pendiente | — |
 | CP-022 | Vista a 360 px | Revisar buscador, ficha y mapa a 360 px | Sin scroll horizontal; chips en una fila deslizable; botones de al menos 44 px | Pendiente | Pendiente | — |
 | CP-023 | Sin internet | Abrir `#/mapa` sin conexión | Mensaje "No pudimos cargar el mapa", sin romper el resto de la app | Pendiente | Pendiente | — |
+
+## Etapa 2 – Panel con PIN
+
+| ID | Descripción | Pasos | Resultado esperado | Resultado real | Estado | Fecha |
+|----|-------------|-------|--------------------|----------------|--------|-------|
+| CP-024 | PIN incorrecto | En `#/panel`, elegir un comercio e ingresar un PIN equivocado | Mensaje "PIN incorrecto…", el campo se limpia y no se entra | Pendiente | Pendiente | — |
+| CP-025 | PIN correcto | Elegir Tienda Don Pedro e ingresar 1111 | Se abre "Panel de Tienda Don Pedro" con solo sus 7 productos | Pendiente | Pendiente | — |
+| CP-026 | Editar precio del arroz | Editar "Arroz" de Tienda Don Pedro, poner 5000 y guardar | Aviso "Cambios guardados."; en el buscador, "arroz" muestra $ 5.000 para ese comercio | Pendiente | Pendiente | — |
+| CP-027 | Crear producto | Pulsar "Agregar producto", llenar los campos y guardar | Aviso "Producto agregado." y el producto aparece en la lista y en el buscador | Pendiente | Pendiente | — |
+| CP-028 | Validación del formulario | Guardar el formulario vacío, o con precio con decimales | Mensaje de error claro; no se guarda | Pendiente | Pendiente | — |
+| CP-029 | Eliminar con confirmación | Pulsar "Eliminar" y cancelar; luego repetir y aceptar | Al cancelar no pasa nada; al aceptar sale "Producto eliminado." y desaparece de la lista | Pendiente | Pendiente | — |
+| CP-030 | Cambios persisten | Editar un precio y recargar la página (F5) | El precio nuevo se mantiene en el buscador | Pendiente | Pendiente | — |
+| CP-031 | Cerrar sesión | Pulsar "Cerrar sesión" | Vuelve al acceso con PIN; aviso "Sesión cerrada." | Pendiente | Pendiente | — |
+| CP-032 | Restablecer | Con cambios hechos, pulsar "Restablecer datos de ejemplo" | El arroz de Tienda Don Pedro vuelve a $ 4.200 y desaparecen los productos creados | Pendiente | Pendiente | — |
+| CP-033 | Texto con HTML | Crear un producto llamado `<b>prueba</b>` | Se muestra el texto literal, sin negrita ni código ejecutado | Pendiente | Pendiente | — |
+
+## Etapa 3 – Disponibilidad
+
+| ID | Descripción | Pasos | Resultado esperado | Resultado real | Estado | Fecha |
+|----|-------------|-------|--------------------|----------------|--------|-------|
+| CP-034 | Tres estados visibles | Buscar productos sin filtro y revisar las insignias | Se ven "✓ Disponible" (verde), "! Pocas unidades" (ámbar) y "✕ Agotado" (coral), siempre con texto | Pendiente | Pendiente | — |
+| CP-035 | Estado en la ficha | Abrir la ficha de Tienda Don Pedro | Cada producto muestra su insignia de disponibilidad | Pendiente | Pendiente | — |
+| CP-036 | Cambiar estado en el panel | Poner un producto en "Agotado" desde el panel | La insignia cambia en el panel, el buscador y la ficha | Pendiente | Pendiente | — |
