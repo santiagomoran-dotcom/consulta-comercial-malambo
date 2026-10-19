@@ -1,11 +1,21 @@
 /*
  * Utilidades compartidas de Consulta Comercial Malambo.
- * Por ahora solo ayuda a construir nodos del DOM de forma segura (sin innerHTML).
+ * Reúne formato (precios, fechas), normalización de texto y ayudas para construir el DOM sin innerHTML.
  */
 (function () {
   'use strict';
 
   window.CCM = window.CCM || {};
+
+  const MS_POR_MINUTO = 60 * 1000;
+  const MINUTOS_POR_HORA = 60;
+  const HORAS_POR_DIA = 24;
+
+  const formateadorPrecio = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    maximumFractionDigits: 0
+  });
 
   /**
    * Crea un elemento con clases y texto opcionales.
@@ -26,5 +36,84 @@
     return nodo;
   }
 
-  window.CCM.utils = { crearElemento: crearElemento };
+  /**
+   * Quita tildes y mayúsculas para comparar textos ("Limón" y "limon" son iguales).
+   * @param {string} texto Texto original.
+   * @returns {string}
+   */
+  function normalizarTexto(texto) {
+    return texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  }
+
+  /**
+   * Da formato de pesos colombianos a un valor entero.
+   * @param {number} valor Precio en COP.
+   * @returns {string} Por ejemplo "$ 4.200".
+   */
+  function formatearPrecio(valor) {
+    return formateadorPrecio.format(valor);
+  }
+
+  function pluralizar(cantidad, singular, plural) {
+    return cantidad === 1 ? singular : plural;
+  }
+
+  /**
+   * Convierte una fecha ISO en un texto relativo como "hace 3 h".
+   * @param {string} fechaIso Fecha de la última actualización.
+   * @param {number} [ahoraMs] Instante de referencia en milisegundos; por defecto, ahora.
+   * @returns {string}
+   */
+  function textoActualizado(fechaIso, ahoraMs) {
+    const minutos = Math.floor(((ahoraMs || Date.now()) - new Date(fechaIso).getTime()) / MS_POR_MINUTO);
+    if (minutos < 1) {
+      return 'Actualizado hace un momento';
+    }
+    if (minutos < MINUTOS_POR_HORA) {
+      return 'Actualizado hace ' + minutos + ' min';
+    }
+    const horas = Math.floor(minutos / MINUTOS_POR_HORA);
+    if (horas < HORAS_POR_DIA) {
+      return 'Actualizado hace ' + horas + ' h';
+    }
+    const dias = Math.floor(horas / HORAS_POR_DIA);
+    return 'Actualizado hace ' + dias + ' ' + pluralizar(dias, 'día', 'días');
+  }
+
+  /**
+   * Devuelve una versión de la función que espera a que pasen `espera` ms sin nuevas llamadas.
+   * Evita filtrar en cada tecla mientras la persona sigue escribiendo.
+   * @param {function} funcion Función a retrasar.
+   * @param {number} espera Milisegundos de espera.
+   * @returns {function}
+   */
+  function retrasar(funcion, espera) {
+    let temporizador = null;
+    return function () {
+      window.clearTimeout(temporizador);
+      temporizador = window.setTimeout(funcion, espera);
+    };
+  }
+
+  /**
+   * Crea la insignia Abierto/Cerrado. El estado va en texto y no solo en color.
+   * @param {boolean} abierto Si el comercio está abierto ahora.
+   * @returns {HTMLElement}
+   */
+  function crearInsigniaApertura(abierto) {
+    return crearElemento(
+      'span',
+      'insignia ' + (abierto ? 'insignia-abierto' : 'insignia-cerrado'),
+      abierto ? 'Abierto' : 'Cerrado'
+    );
+  }
+
+  window.CCM.utils = {
+    crearElemento: crearElemento,
+    normalizarTexto: normalizarTexto,
+    formatearPrecio: formatearPrecio,
+    textoActualizado: textoActualizado,
+    retrasar: retrasar,
+    crearInsigniaApertura: crearInsigniaApertura
+  };
 })();
