@@ -44,6 +44,7 @@
     item.appendChild(lugar);
 
     const pie = crear('div', 'fila-meta');
+    pie.appendChild(utils.crearInsigniaEstado(resultado.producto.estado));
     pie.appendChild(utils.crearInsigniaApertura(resultado.abierto));
     pie.appendChild(crear('span', 'texto-suave', utils.textoActualizado(resultado.producto.actualizado)));
     item.appendChild(pie);

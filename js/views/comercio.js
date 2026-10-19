@@ -78,11 +78,9 @@
     return seccion;
   }
 
-  function crearSeccionProductos(comercio, datos) {
+  function crearSeccionProductos(comercio) {
     const seccion = crearSeccion('Productos');
-    const propios = datos.productos
-      .filter(function (producto) { return producto.comercio_id === comercio.id; })
-      .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); });
+    const propios = window.CCM.store.obtenerProductosDeComercio(comercio.id);
     if (propios.length === 0) {
       seccion.appendChild(crear('p', 'tarjeta-detalle', 'Este comercio aún no tiene productos publicados.'));
       return seccion;
@@ -90,9 +88,14 @@
     const lista = crear('ul', 'lista-productos');
     propios.forEach(function (producto) {
       const fila = crear('li', 'fila-producto');
-      const nombre = crear('span', '', producto.nombre);
-      nombre.appendChild(crear('span', 'texto-suave', ' · ' + producto.unidad));
-      fila.appendChild(nombre);
+      const descripcion = crear('div');
+      descripcion.appendChild(crear('span', '', producto.nombre));
+      descripcion.appendChild(crear('span', 'texto-suave', ' · ' + producto.unidad));
+      const estado = crear('div', 'fila-meta');
+      estado.appendChild(window.CCM.utils.crearInsigniaEstado(producto.estado));
+      estado.appendChild(crear('span', 'texto-suave', window.CCM.utils.textoActualizado(producto.actualizado)));
+      descripcion.appendChild(estado);
+      fila.appendChild(descripcion);
       fila.appendChild(crear('strong', 'precio', window.CCM.utils.formatearPrecio(producto.precio)));
       lista.appendChild(fila);
     });
@@ -125,7 +128,6 @@
    * @returns {string} Título de la página.
    */
   function renderizar(contenedor, parametros) {
-    const datos = window.CCM.store.obtenerDatos();
     const comercio = window.CCM.store.obtenerComercio(parametros.id);
     if (!comercio) {
       return renderizarNoEncontrado(contenedor);
@@ -147,7 +149,7 @@
     rejilla.appendChild(crearSeccionContacto(comercio));
     rejilla.appendChild(crearSeccionHorario(comercio, ahora));
     rejilla.appendChild(crearSeccionPagos(comercio));
-    rejilla.appendChild(crearSeccionProductos(comercio, datos));
+    rejilla.appendChild(crearSeccionProductos(comercio));
     rejilla.appendChild(mapa.seccion);
     contenedor.appendChild(rejilla);
     mapa.dibujar();
