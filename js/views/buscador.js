@@ -178,7 +178,7 @@
       chips.appendChild(crearChip(categoria, categoria, elegirCategoria));
     });
 
-    const formulario = crear('form', 'tarjeta formulario-busqueda');
+    const formulario = crear('form', 'formulario-hero');
     formulario.setAttribute('role', 'search');
     formulario.addEventListener('submit', function (evento) {
       evento.preventDefault();
@@ -189,7 +189,7 @@
     const entrada = crear('input', 'campo campo-busqueda');
     entrada.id = 'busqueda-texto';
     entrada.type = 'search';
-    entrada.placeholder = 'Busca: arroz, pan, martillo…';
+    entrada.placeholder = 'Busca: arroz, pan…';
     entrada.autocomplete = 'off';
     entrada.value = filtros.texto;
     const buscarConEspera = window.CCM.utils.retrasar(function () {
@@ -214,12 +214,19 @@
 
     formulario.appendChild(etiquetaBusqueda);
     formulario.appendChild(entrada);
-    formulario.appendChild(chips);
-    formulario.appendChild(panelFiltros);
 
-    contenedor.appendChild(crear('h1', 'titulo-pagina', '¿Qué estás buscando en Malambo?'));
-    contenedor.appendChild(crear('p', 'subtitulo', 'Compara precios, ubicación y medios de pago de los comercios del municipio.'));
-    contenedor.appendChild(formulario);
+    const filtrosCaja = crear('section', 'tarjeta formulario-busqueda');
+    filtrosCaja.setAttribute('aria-label', 'Filtros de búsqueda');
+    filtrosCaja.appendChild(chips);
+    filtrosCaja.appendChild(panelFiltros);
+
+    const portada = crear('section', 'hero');
+    portada.appendChild(crear('h1', 'titulo-pagina', '¿Qué estás buscando en Malambo?'));
+    portada.appendChild(crear('p', 'subtitulo', 'Compara precios, ubicación y medios de pago de los comercios del municipio.'));
+    portada.appendChild(formulario);
+
+    contenedor.appendChild(portada);
+    contenedor.appendChild(filtrosCaja);
     contenedor.appendChild(contador);
     contenedor.appendChild(resultados);
 
