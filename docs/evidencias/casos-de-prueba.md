@@ -63,5 +63,5 @@ Los resultados reales los registra el equipo después de probar en el navegador.
 | ID | Descripción | Pasos | Resultado esperado | Resultado real | Estado | Fecha |
 |----|-------------|-------|--------------------|----------------|--------|-------|
 | CP-037 | Favicon | Abrir el sitio y mirar la pestaña del navegador | Se ve el ícono de pin verde azulado | Pendiente | Pendiente | — |
-| CP-038 | Tipografías de Google Fonts | Abrir el inicio con internet | Títulos en Fraunces (serif) y texto en DM Sans; sin internet se usan Cambria y Calibri | Pendiente | Pendiente | — |
+| CP-038 | Tipografías de Google Fonts | Abrir el inicio con internet | Títulos en Plus Jakarta Sans y texto en Inter; sin internet se usa la tipografía del sistema | Pendiente | Pendiente | — |
 | CP-039 | Diálogo de confirmación | Eliminar un producto y restablecer datos | Diálogo centrado con fondo oscuro, botones de al menos 44 px; se cierra con Escape y con clic fuera | Pendiente | Pendiente | — |
