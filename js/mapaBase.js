@@ -1,5 +1,5 @@
 /*
- * Utilidades de mapa sobre Leaflet y OpenStreetMap, compartidas por la ficha y el mapa general.
+ * Utilidades de mapa sobre Leaflet, compartidas por la ficha y el mapa general.
  * Si Leaflet no cargó (sin internet), las vistas muestran un aviso en lugar de romperse.
  */
 (function () {
@@ -7,8 +7,10 @@
 
   window.CCM = window.CCM || {};
 
-  const URL_TESELAS = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-  const ATRIBUCION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+  // Mosaicos de Esri World Street Map (sin llave de API). Se evitó tile.openstreetmap.org porque responde
+  // "403 Access blocked" cuando la petición no trae Referer, algo habitual al abrir con file://.
+  const URL_TESELAS = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+  const ATRIBUCION = 'Mapa &copy; <a href="https://www.esri.com">Esri</a>, HERE, Garmin y colaboradores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   const ZOOM_MAXIMO = 19;
   const MARGEN_AJUSTE = [32, 32];
   const URL_COMO_LLEGAR = 'https://www.google.com/maps/dir/?api=1&destination=';
